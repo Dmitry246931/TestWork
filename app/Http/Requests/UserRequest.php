@@ -27,12 +27,12 @@ class UserRequest extends FormRequest
             'family' => 'required|alpha',
             'name' => 'required|alpha',
             'name_father' => 'required|alpha',
-            'phone' => 'required|unique:users,phone|regex:/\+(7)\h\([0-9]{3}\)\h[0-9]{3}\-[0-9]{2}\-[0-9]{2}/|size:18',
+            'phone' => 'required|regex:/\+(7)\h\([0-9]{3}\)\h[0-9]{3}\-[0-9]{2}\-[0-9]{2}/|size:18',
             'gen' => '',
             'mark' => 'required',
-            'model' => 'required',
+            'model' => 'required|alpha_num:autos,model|regex:/[a-zA-Z][0-9]/u',
             'color' => 'required',
-            'gos_number' => 'required|unique:autos,gos_number|size:8|alpha_num|regex:/[А-Я]{1}[0-9]{3}[А-Я]{2}[0-9]{2}/u',
+            'gos_number' => 'required|unique:autos,gos_number|min:8|max:9|alpha_num|regex:/[А-Я]{1}[0-9]{3}[А-Я]{2}[0-9][0-9][0-9]?/u',
             'address' => 'required',
 
         ];

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
