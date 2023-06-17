@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Models;
-
 namespace App\Http\Controllers;
 
-//use Illuminate\Pagination\Paginator;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpRequest;
-use App\Models\Auto;
 use App\Models\User;
+use App\Models\Auto;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(User $user)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
         $users = new User();
         $users = $users->get_users();
@@ -25,36 +25,59 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view('sign');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(UserRequest $request)
     {
-        $user = User::user_create($request);
-        Auto::auto_create($request, $user);
+        try {
+            $data = $request;
+            User::user_create($data);
+            Auto::auto_create($request, $data);
 
-        return redirect()->route('users.index');
+            return redirect()->route('users.index')->with('message', 'perf');
+        }catch (\Exception $ex){
+            return redirect()->route('users.index')->with('message', 'err'.$ex);
+        }
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(User $user)
     {
         $autos = Auto::show_autos($user);
         return view('my_auto', compact('autos'), compact('user'));
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(User $user)
     {
         return view('sign', compact('user'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(UserUpRequest $request, User $user)
     {
         User::up_user($request, $user);
         return redirect()->route('users.index');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(User $user)
     {
         User::delete_user($user);

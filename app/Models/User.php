@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,50 +9,26 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'users';
     protected $fillable = [
         'name',
-        'family',
         'name_father',
+        'family',
         'phone',
-        'geh',
+        'gen',
         'address',
-
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function autos(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function Auto(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Auto::class, 'user_id', 'id');
+        return $this->hasMany(Auto::class, 'user_id','id');
     }
-
     public static function get_users()
     {
         return DB::table('users')->paginate(2);

@@ -8,6 +8,7 @@
 
 @section('content')
     <h1>Машины {{$user->family}}</h1>
+
     <div>
         <table class="table">
             <thead class="thead-dark">

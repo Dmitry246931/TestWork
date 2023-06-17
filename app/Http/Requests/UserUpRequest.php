@@ -23,11 +23,28 @@ class UserUpRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'family' => 'required|alpha',
             'name' => 'required|alpha',
             'name_father' => 'required|alpha',
-            'phone' => 'required|regex:/\+(7)\h\([0-9]{3}\)\h[0-9]{3}\-[0-9]{2}\-[0-9]{2}/|size:18',
+            'phone' => 'required|unique:users,phone|regex:/\+(7)\h\([0-9]{3}\)\h[0-9]{3}\-[0-9]{2}\-[0-9]{2}/|size:18',
+        ];
+        if ($this->getMethod() == "POST"){
+            $rules += [
+                'phone' => 'required|unique:users,phone|regex:/\+(7)\h\([0-9]{3}\)\h[0-9]{3}\-[0-9]{2}\-[0-9]{2}/|size:18',
+
+            ];
+        }
+        return $rules;
+    }
+    public function messages()
+    {
+        return [
+            'family.required'=>'Введите вашу фамилию',
+            'name.required'=>'Введите ваше имя',
+            'phone.required'=>'Введите правильный номер телефона, например +7 (777) 777-77-77',
+            'name_father.required'=>'Введите ваше отчество',
+
         ];
     }
 }
