@@ -36,7 +36,7 @@ class User extends Model
 
     public static function user_create($request)
     {
-        $user = DB::table('users')->insert($request->only(['family', 'name', 'name_father', 'phone', 'gen', 'address']));
+        DB::table('users')->insert($request->only(['family', 'name', 'name_father', 'phone', 'gen', 'address']));
         $user_id = DB::table('users')->where('phone', '=', $request->phone)->get('id');
         foreach ($user_id as $user => $value)
             return $value;

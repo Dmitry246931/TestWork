@@ -32,15 +32,15 @@ class AutoController extends Controller
      */
     public function store(AutoRequest $request, User $user)
     {
-        /*try {
-            $data = $request;*/
+        try {
+            $data = $request;
         $autos = new Auto();
-        $autos::auto_create($request, $user);
+        $autos::auto_create($data, $user);
         $autos = Auto::au_where_us($user);
         return view('my_auto', compact('autos'), compact('user'));
-        /*}catch (\Exception $ex){
-            return redirect()->route('park')->with('message', 'err'.$ex);
-        }*/
+        }catch (\Exception $ex){
+            return redirect()->route('users.index')->with('message', 'err'.$ex);
+        }
     }
 
     /**
@@ -64,8 +64,14 @@ class AutoController extends Controller
      */
     public function update(AutoUpRequest $request, auto $auto)
     {
-        Auto::up_auto($request, $auto);
-        return redirect()->route('users.index');
+        try {
+            $data = $request;
+            Auto::up_auto($data, $auto);
+            return redirect()->route('users.index');
+        }catch (\Exception $ex){
+            return redirect()->route('users.index')->with('message', 'err'.$ex);
+        }
+
     }
 
     /**

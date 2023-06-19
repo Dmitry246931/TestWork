@@ -40,8 +40,8 @@ class UserController extends Controller
     {
         try {
             $data = $request;
-            User::user_create($data);
-            Auto::auto_create($request, $data);
+            $user = User::user_create($data);
+            Auto::auto_create($data, $user);
 
             return redirect()->route('users.index')->with('message', 'perf');
         }catch (\Exception $ex){
@@ -71,8 +71,13 @@ class UserController extends Controller
      */
     public function update(UserUpRequest $request, User $user)
     {
-        User::up_user($request, $user);
-        return redirect()->route('users.index');
+        try {
+            $data =$request;
+            User::up_user($data, $user);
+            return redirect()->route('users.index');
+        }catch (\Exception $ex){
+            return redirect()->route('users.index')->with('message', 'err'.$ex);
+        }
     }
 
     /**
