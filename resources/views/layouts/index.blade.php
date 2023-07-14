@@ -36,11 +36,23 @@
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
+
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="{{ route('users.index') }}">Клиенты</a>
+                        {{--@dd(\Illuminate\Support\Facades\Auth::user())--}}
+                        @if(auth()->check())
+                            <a class="nav-link active" aria-current="page" href="{{ route('users.index') }}">Клиенты</a>
+                            <a class="nav-link" href="{{route('park')}}">Парковка</a>
+                            <a class="nav-link" href="{{route('logout')}}">Выход</a>
+                        @endif
 
-                        <a class="nav-link" href="{{route('park')}}">Парковка</a>
+                        <a class="nav-link" href="{{route('register')}}">Регистрация</a>
+                        <a class="nav-link" href="{{route('login')}}">Авторизация</a>
+                        {{--<a class="nav-link active" aria-current="page" href="{{ route('users.index') }}">Клиенты</a>
+
+                        <a class="nav-link" href="{{route('park')}}">Парковка</a>--}}
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </div>
                 </div>

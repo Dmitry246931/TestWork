@@ -12,18 +12,19 @@ use Laravel\Sanctum\HasApiTokens;
 //use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens, Notifiable;
 
     protected $table = 'users';
     protected $fillable = [
+        'email',
         'name',
-        'name_father',
-        'family',
+        'lastname',
         'phone',
         'gen',
         'address',
+        'password',
     ];
     public function Auto(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -31,12 +32,12 @@ class User extends Model
     }
     public static function get_users()
     {
-        return DB::table('users')->paginate(2);
+        return DB::table('users')->paginate(5);
     }
 
     public static function user_create($request)
     {
-        DB::table('users')->insert($request->only(['family', 'name', 'name_father', 'phone', 'gen', 'address']));
+        DB::table('users')->insert($request->only(['lastname', 'email', 'name', 'phone', 'gen', 'address']));
         $user_id = DB::table('users')->where('phone', '=', $request->phone)->get('id');
         foreach ($user_id as $user => $value)
             return $value;
@@ -45,7 +46,7 @@ class User extends Model
 
     public static function up_user($request, $user)
     {
-        DB::table('users')->where('id', '=', $user->id)->update($request->only(['family', 'name', 'name_father', 'phone'/*,'gender'*/, 'address']));
+        DB::table('users')->where('id', '=', $user->id)->update($request->only(['lastname', 'name', 'name', 'phone'/*,'gender'*/, 'address']));
     }
 
     public static function delete_user($user)

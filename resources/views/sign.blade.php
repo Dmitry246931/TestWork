@@ -27,12 +27,12 @@
                 <div class="col-sm">
                     <div class="form-group ">
                         <label for="formGroupExampleInput">Фамилия</label>
-                        <input type="text" name="family"
-                               value="{{old('family',isset($user) ? $user->family : null)}}"
+                        <input type="text" name="lastname"
+                               value="{{old('lastname',isset($user) ? $user->lastname : null)}}"
                                class="form-control " id="formGroupExampleInput" placeholder="Введите фамилию">
-                        @if($errors->has('family'))
+                        @if($errors->has('lastname'))
                             <div class="small text-danger pt-1">
-                                {{$errors->first('family')}}
+                                {{$errors->first('lastname')}}
                             </div>
                         @endif
                         {{--@error('family')
@@ -51,13 +51,13 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="formGroupExampleInput2">Отчество</label>
-                        <input type="text" name="name_father"
-                               value="{{old('name_father',isset($user) ? $user->name_father : null)}}"
-                               class="form-control " id="formGroupExampleInput2" placeholder="Введите Отчество">
-                        @if($errors->has('name_father'))
+                        <label for="formGroupExampleInput2">Email</label>
+                        <input type="email" name="email"
+                               value="{{old('email',isset($user) ? $user->email : null)}}"
+                               class="form-control " id="formGroupExampleInput2" placeholder="Введите email">
+                        @if($errors->has('email'))
                             <div class="small text-danger pt-1">
-                                {{$errors->first('name_father')}}
+                                {{$errors->first('email')}}
                             </div>
                         @endif
                     </div>

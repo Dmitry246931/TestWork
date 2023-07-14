@@ -13,7 +13,7 @@
             <tr>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Имя</th>
-                <th scope="col">Отчество</th>
+                <th scope="col">Email</th>
                 <th scope="col">Номер</th>
                 <th scope="col">Автомобили клиента</th>
                 <th scope="col">Изменить данные</th>
@@ -24,13 +24,13 @@
             @foreach($users as $user => $value)
                 <tr>
                     <td>
-                        {{ $value -> family }}
+                        {{ $value -> lastname }}
                     </td>
                     <td>
                         {{ $value -> name }}
                     </td>
                     <td>
-                        {{ $value -> name_father }}
+                        {{ $value -> email }}
                     </td>
                     <td>
                         {{ $value -> phone }}

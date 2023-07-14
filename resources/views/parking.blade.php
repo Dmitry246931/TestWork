@@ -14,7 +14,7 @@
                 <select class="form-control input-sm" name="category_id">
                     <option value="">--select--</option>
                     @foreach ($users as $row=>$value)
-                        <option value="{{$value->id}}">{{$value->family}}</option>
+                        <option value="{{$value->id}}">{{$value->lastname}}</option>
                     @endforeach
                 </select>
             </div>
